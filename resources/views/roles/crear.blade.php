@@ -23,14 +23,14 @@
                             </div>
                             @endif
 
-                            <form action="roles.store" method="POST">
+                            <form action="{{ route('roles.store')}}" method="POST">
                                 @csrf
                                   
                                   <div class="row">
                                       <div class="col-xs-12 col-sm-12 col-md-12">
                                           <div class="form-group">
                                              <label for="name">Nombre del Rol</label>
-                                             <input class="form-control" type="text" name="Nombre" value="" placeholder="Ingrese el Nombre">
+                                             <input class="form-control" type="text" name="name" placeholder="Ingrese el Nombre">
                                           </div>
                                       </div>
 
@@ -40,7 +40,7 @@
                                             <br/>
                                               @foreach($permission as $value)
                                                  <label>
-                                                     <input type="checkbox" id= "{{$value->id}}">
+                                                     <input type="checkbox" name="permission[]" value="{{$value->name}}">
                                                      {{$value->name}}
                                                  </label><br>
                                               @endforeach 

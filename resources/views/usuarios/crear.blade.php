@@ -23,35 +23,36 @@
                             </div>
                             @endif
 
-                            <form action="usuarios.store" method="POST">
+
+                            <form action="{{ route('usuarios.store')}}" method="post">
                                 @csrf
-                                  
                                   <div class="row">
                                       <div class="col-xs-12 col-sm-12 col-md-12">
                                           <div class="form-group">
                                              <label for="name">Nombre</label>
-                                             <input class="form-control" type="text" name="Nombre" value="" placeholder="Ingrese el Nombre">
+                                             <input class="form-control" type="text" name="name" value="" placeholder="Ingrese el Nombre">
                                           </div>
                                       </div>
 
                                       <div class="col-xs-12 col-sm-12 col-md-12">
                                           <div class="form-group">
                                              <label for="email">Email</label>
-                                             <input class="form-control" type="email" name="Nombre" value="" placeholder="Ingrese el Email">
+                                             <input class="form-control" type="email" name="email" value="" placeholder="Ingrese el Email">
                                           </div>
                                       </div>
 
                                       <div class="col-xs-12 col-sm-12 col-md-12">
                                           <div class="form-group">
                                              <label for="password">Password</label>
-                                             <input class="form-control" type="password" name="Nombre" value="" placeholder="Ingrese la Contraseña">
+                                             <input class="form-control" type="password" name="password" placeholder="Ingrese la Contraseña">
                                           </div>
                                       </div>
 
                                       <div class="col-xs-12 col-sm-12 col-md-12">
                                           <div class="form-group">
                                              <label for="confirm-password">Confirmar Password</label>
-                                             <input class="form-control" type="password" name="Nombre" value="" placeholder="Confirme la Contraseña">
+                                             <input class="form-control" type="password" 
+                                              name="confirm-password" placeholder="Confirme la Contraseña">
                                           </div>
                                       </div>
 
@@ -59,9 +60,10 @@
                                           <div class="form-group">
                                              <label for="">Roles</label>
                                                <select name="roles">
+                                               <option selected disabled >selecciona una opcion</option>
                                                   @foreach($roles as $role)
-                                                     <option id=$role->id>$role->name</option>
-                                                  @endforeach                                          
+                                                     <option id="$role->id">{{$role}}</option>
+                                                  @endforeach                      
                                                </select>
                                           </div>
                                       </div>

@@ -10,9 +10,10 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="text-center">Dashboard Content</h3>
+                            <h3 class="text-center">Lista de Usuarios</h3>
+                            @can('crear-rol')
                             <a class="btn btn-warning" href="{{ route('usuarios.create')}}">Nuevo</a>
-
+                            @endcan
                             <table class="table table-striped at-2">
                                 <thead style="background-color: #6777ef;">
                                   <th style="display: none;">ID</th>
@@ -35,16 +36,30 @@
                                             @endif  
                                         </td>
                                         <td>
-                                            <a class="btn btn-info" href="{{ route('usuarios.edit', $usuario->id) }}">Editar</a>                   
-                                            <form method="POST" action="/delete">
-                                            <a class="btn btn-danger" href="{{ route('usuarios.destroy', $usuario->id) }}">Borrar</a>
-                                            </form>
+                                        <form action="{{ route('usuarios.destroy',$usuario->id)}}" method="POST">    
+                                            @can('editar-rol')
+                                            <a class="btn btn-info" href="{{ route('usuarios.edit', $usuario->id) }}">Editar</a> 
+                                            @endcan                  
+<!--                                            <form method="POST" action="{{ route('usuarios.destroy', $usuario->id) }}">
+                                            <a class="btn btn-danger">Borrar</a>
+                                            </form>                                            
+-->                                         
+                                            @csrf
+                                            @method('DELETE')
+                                            @can('borrar-rol')
+                                            <button type="submit" class="btn btn-danger">Borrar</button>
+                                            @endcan
+                                        </form>                                            
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
 
                             </table>
+
+                            <div class="pagination justify-content-end">
+                              {{$usuarios->links()}}
+                            </div>
                         </div>
                     </div>
                 </div>

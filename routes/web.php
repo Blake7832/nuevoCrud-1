@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExamenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -22,11 +23,12 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware'=>['auth']],function(){
+Route::group(['middleware' => ['auth']], function () {
     Route::resource('usuarios', UserController::class);
     Route::resource('roles', RolController::class);
+    Route::resource('examenes', ExamenController::class);
 });

@@ -27,20 +27,26 @@
                                         <td style="display: none;">{{$role->id}}</td>
                                         <td>{{$role->name}}</td>
                                         <td>
-                                            @can('editar-rol')
-                                            <a class="btn btn-info" href="{{ route('usuarios.edit', $role->id) }}">Editar</a>
+                                        <form method="POST" action="{{ route('roles.destroy', $role->id) }}">
+<!--                                            @can('editar-rol')
+                                            <a class="btn btn-info" href="{{ route('roles.edit', $role->id) }}">Editar</a>
                                             @endcan
-                                            
-                                            <form method="POST" action="/delete">
-                                            <a class="btn btn-danger" href="{{ route('usuarios.destroy', $role->id) }}">Borrar</a>
-                                            </form>
+-->                                            
+                                            @csrf
+                                            @method('DELETE')
+                                            @can('borrar-rol')
+                                            <button type="submit" class="btn btn-danger">Borrar</button>
+                                            @endcan
+                                        </form>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
 
                             </table>
-
+                            <div class="pagination justify-content-end">
+                               {{$roles->links()}}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,14 @@ use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:ver-rol|crear-rol|editar-rol|borrar-rol')->only('index');
+        $this->middleware('permission:crear-rol',['only'=>['create','store']]);
+        $this->middleware('permission:editar-rol',['only'=>['edit','update']]);
+        $this->middleware('permission:borrar-rol',['only'=>['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +39,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles=Role::pluck('name','name')->all();
+        //$roles=Role::pluck('name', 'name')->all();
+        $roles=Role::all()->pluck('name');
         return view('usuarios.crear',compact('roles'));
     }
 
@@ -49,9 +58,10 @@ class UserController extends Controller
             'password'=>'required|same:confirm-password',
             'roles'=>'required'
         ]);
-
         $input=$request->all();
-        $input['password']=Hash::make($request->input['password']);
+        //$request->password=Hash::make($request->password);
+        $input['password']=Hash::make($request->password);
+        //$input=$request->all();
 
         $user=User::create($input);
         $user->assignRole($request->input('roles'));
@@ -96,11 +106,11 @@ class UserController extends Controller
     {
         $this->validate($request,[
             'name'=>'required',
-            'email'=>'required|email|unique:users,email'.$id,
+            'email'=>'required|email|unique:users,email,'.$id,
             'password'=>'same:confirm-password',
             'roles'=>'required'
         ]);
-
+        //dd($request->roles);
         $input=$request->all();
         if (!empty($input['password'])) {
             $input['password']=Hash::make($input['password']);

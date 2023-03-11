@@ -8,4 +8,10 @@
     <a class="nav-link" href="/roles">
         <i class=" fas fa-user-lock"></i><span>Roles</span>
     </a>
+    <a class="nav-link" href="/examenes">
+        <i class=" fas fa-file"></i><span>Examenes</span>
+    </a>
+    <a class="nav-link" href="/generarExamenes">
+        <i class=" far fa-file"></i><span>Generar Examen</span>
+    </a>
 </li>
